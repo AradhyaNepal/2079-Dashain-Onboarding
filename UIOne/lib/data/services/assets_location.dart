@@ -1,0 +1,6 @@
+class AssetsLocation{
+  AssetsLocation._();
+
+
+}
+
