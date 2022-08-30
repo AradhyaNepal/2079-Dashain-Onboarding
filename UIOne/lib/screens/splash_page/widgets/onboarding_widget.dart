@@ -11,12 +11,84 @@ class OnBoardingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(data.heading),
-        Text(data.subText),
-        Image.asset(data.image),
-      ],
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          data.imageAtTop?SizedBox():
+          Column(
+            children: [
+              SizedBox(height: 25,),
+              Text(
+                data.subText,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: Text(
+                  data.heading,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Text(
+                "€"+data.priceEuro.toString(),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            child: Image.asset(
+                data.image
+            ),
+          ),
+          data.imageAtTop?Column(
+            children: [
+              SizedBox(height: 5,),
+              Text(
+                "€"+data.priceEuro.toString(),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18
+                ),
+              ),
+              Text(
+                data.subText,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
+                child: Text(
+                  data.heading,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ):SizedBox(),
+
+
+        ],
+      ),
     );
   }
 }
