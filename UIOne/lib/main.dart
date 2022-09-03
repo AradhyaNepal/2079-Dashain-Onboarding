@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ui_one/screens/registration/signup.dart';
 import 'package:ui_one/screens/splash_page/splash_page.dart';
 
 void main() {
@@ -16,10 +17,12 @@ class MyApp extends StatelessWidget {
       title: 'UIOne',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        colorScheme: ColorScheme.light().copyWith(primary:Color(0xffCC9D76),secondary: Colors.orange),
       ),
       initialRoute: SplashPage.route,
       routes: {
-        SplashPage.route:(context)=>const SplashPage()
+        SplashPage.route:(context)=>const SplashPage(),
+        SignupPage.route:(context)=> SignupPage()
       },
     );
   }

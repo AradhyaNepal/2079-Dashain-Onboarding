@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ui_one/data/models/on_boarding_model.dart';
 import 'package:ui_one/data/services/assets_location.dart';
+import 'package:ui_one/screens/registration/signup.dart';
 import 'package:ui_one/screens/splash_page/widgets/onboarding_widget.dart';
 
 class SplashPage extends StatefulWidget {
+  final bool fromRegisterPage;
   static const route="/";
-  const SplashPage({Key? key}) : super(key: key);
+  const SplashPage({this.fromRegisterPage=false,Key? key}) : super(key: key);
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -25,6 +27,15 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     // TODO: implement initState
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      bool fromRegister=(ModalRoute.of(context)?.settings.arguments ?? false) as bool;
+      pageIndex=fromRegister?2:1;
+      pageController.jumpToPage(pageIndex);
+      setState(() {
+        
+      });
+    });
+
     super.initState();
   }
   @override
@@ -123,6 +134,8 @@ class _SplashPageState extends State<SplashPage> {
                         onPressed: (){
                           if(pageIndex!=2){
                             pageController.nextPage(duration: Duration(milliseconds: 500),curve: Curves.easeIn);
+                          }else{
+                            Navigator.pushReplacementNamed(context, SignupPage.route);
                           }
                         },
                         child: Text(pageIndex==2?"CREATE ACCOUNT":"NEXT")

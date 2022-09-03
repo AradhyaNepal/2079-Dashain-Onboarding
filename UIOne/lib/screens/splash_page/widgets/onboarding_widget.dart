@@ -11,79 +11,90 @@ class OnBoardingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
+    return SizedBox(
       child: Column(
         children: [
           data.imageAtTop?SizedBox():
-          Column(
-            children: [
-              SizedBox(height: 25,),
-              Text(
-                data.subText,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20
-                ),
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Text(
-                  data.heading,
+          Expanded(
+            child: Column(
+              children: [
+                SizedBox(height: 25,),
+                Text(
+                  data.subText,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-
+                      color: Colors.white,
+                      fontSize: 20
                   ),
                   textAlign: TextAlign.center,
                 ),
-              ),
-              Text(
-                "€"+data.priceEuro.toString(),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Text(
+                    data.heading,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            child: Image.asset(
-                data.image
+                Text(
+                  "€"+data.priceEuro.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18
+                  ),
+                ),
+                Expanded(
+                  child: Image.asset(
+                      data.image
+                  ),
+                ),
+                SizedBox(height: 15,)
+              ],
             ),
           ),
-          data.imageAtTop?Column(
-            children: [
-              SizedBox(height: 5,),
-              Text(
-                "€"+data.priceEuro.toString(),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18
-                ),
-              ),
-              Text(
-                data.subText,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20
-                ),
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15.0),
-                child: Text(
-                  data.heading,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
 
+          data.imageAtTop?
+          Expanded(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image.asset(
+                      data.image
+                  ),
+                ),
+                SizedBox(height: 5,),
+                Text(
+                  "€"+data.priceEuro.toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18
+                  ),
+                ),
+                Text(
+                  data.subText,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20
                   ),
                   textAlign: TextAlign.center,
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  child: Text(
+                    data.heading,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+            ),
           ):SizedBox(),
 
 
