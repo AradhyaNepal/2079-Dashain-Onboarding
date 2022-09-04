@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ui_one/data/services/assets_location.dart';
+import 'package:ui_one/screens/registration/login.dart';
 import 'package:ui_one/screens/splash_page/splash_page.dart';
 
 class SignupPage extends StatelessWidget {
@@ -120,84 +121,19 @@ class SignupPage extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 30,),
-                                  InkWell(
-                                    onTap: (){},
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                        child: Container(
-                                          height: 50,
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(50),
-                                            border: Border.all(color: Colors.red)
-                                          ),
-                                          width: size.width*0.75,
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: SvgPicture.asset(
-                                                    AssetsLocation.googleLogo
-                                                ),
-                                              ),
-                                              Spacer(),
-                                              Text(
-                                                  "Continue with Google",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600
-                                                ),
-                                              ),
-                                              Spacer()
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                  ),
+                                  GoogleWidget(size: size),
 
                                   SizedBox(height: 10,),
-                                  InkWell(
-                                    onTap: (){},
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Container(
-                                        height: 50,
-                                        padding: EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(50),
-                                            border: Border.all(color: Colors.blue)
-                                        ),
-                                        width: size.width*0.75,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex:2,
-                                              child: SvgPicture.asset(
-                                                  AssetsLocation.facebookLogo
-                                              ),
-                                            ),
-                                            SizedBox(width: 15,),
-                                            Spacer(),
-                                            Text(
-                                                "Continue with Facebook",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            SizedBox(width: 15,),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  FacebookWidget(size: size),
                                   SizedBox(height: 20,),
                                   Row(
                                     children: [
                                       Spacer(),
                                       Text("Already Have Account?",),
                                       TextButton(
-                                          onPressed:(){},
+                                          onPressed:(){
+                                            Navigator.pushReplacementNamed(context, LoginPage.route);
+                                          },
                                           child: Text("Sign In",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.black),)),
                                       Spacer(),
 
@@ -221,10 +157,109 @@ class SignupPage extends StatelessWidget {
   }
 }
 
+class FacebookWidget extends StatelessWidget {
+  const FacebookWidget({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: (){},
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: Container(
+          height: 50,
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              border: Border.all(color: Colors.blue)
+          ),
+          width: size.width*0.75,
+          child: Row(
+            children: [
+              Expanded(
+                flex:2,
+                child: SvgPicture.asset(
+                    AssetsLocation.facebookLogo
+                ),
+              ),
+              SizedBox(width: 15,),
+              Spacer(),
+              Text(
+                  "Continue with Facebook",
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w600
+                ),
+              ),
+              Spacer(),
+              SizedBox(width: 15,),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class GoogleWidget extends StatelessWidget {
+  const GoogleWidget({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: (){},
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+          child: Container(
+            height: 50,
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              border: Border.all(color: Colors.red)
+            ),
+            width: size.width*0.75,
+            child: Row(
+              children: [
+                Expanded(
+                  child: SvgPicture.asset(
+                      AssetsLocation.googleLogo
+                  ),
+                ),
+                Spacer(),
+                Text(
+                    "Continue with Google",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                    fontWeight: FontWeight.w600
+                  ),
+                ),
+                Spacer()
+              ],
+            ),
+          ),
+        ),
+    );
+  }
+}
+
 class PasswordField extends StatefulWidget {
-  final FocusNode nextFocus;
+  final FocusNode? nextFocus;
+  final bool next;
   const PasswordField({
-    required this.nextFocus,
+    this.next=true,
+    this.nextFocus,
     Key? key,
   }) : super(key: key);
 
@@ -240,7 +275,7 @@ class _PasswordFieldState extends State<PasswordField> {
       onFieldSubmitted: (_){
         FocusScope.of(context).requestFocus(widget.nextFocus);
       },
-      textInputAction:TextInputAction.next,
+      textInputAction:widget.next?TextInputAction.next:TextInputAction.done,
       obscureText: !passwordVisible,
       decoration: InputDecoration(
           labelText: "Password",

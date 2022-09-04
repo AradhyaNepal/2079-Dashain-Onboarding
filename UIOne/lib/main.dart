@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ui_one/screens/registration/login.dart';
 import 'package:ui_one/screens/registration/signup.dart';
 import 'package:ui_one/screens/splash_page/splash_page.dart';
 
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       initialRoute: SplashPage.route,
       routes: {
         SplashPage.route:(context)=>const SplashPage(),
-        SignupPage.route:(context)=> SignupPage()
+        SignupPage.route:(context)=> SignupPage(),
+        LoginPage.route:(context)=> LoginPage(),
       },
     );
   }

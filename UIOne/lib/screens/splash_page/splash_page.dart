@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ui_one/data/models/on_boarding_model.dart';
 import 'package:ui_one/data/services/assets_location.dart';
+import 'package:ui_one/screens/registration/login.dart';
 import 'package:ui_one/screens/registration/signup.dart';
 import 'package:ui_one/screens/splash_page/widgets/onboarding_widget.dart';
 
@@ -29,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     // TODO: implement initState
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       bool fromRegister=(ModalRoute.of(context)?.settings.arguments ?? false) as bool;
-      pageIndex=fromRegister?2:1;
+      pageIndex=fromRegister?2:0;
       pageController.jumpToPage(pageIndex);
       setState(() {
         
@@ -109,7 +110,7 @@ class _SplashPageState extends State<SplashPage> {
                             )
                         ),
                         onPressed: (){
-
+                          Navigator.pushReplacementNamed(context, LoginPage.route);
                         },
                         child: Text(
                             "SIGN IN"
