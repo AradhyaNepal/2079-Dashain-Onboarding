@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ui_one/data/services/assets_location.dart';
 import 'package:ui_one/screens/registration/login.dart';
 import 'package:ui_one/screens/splash_page/splash_page.dart';
+
+import 'widgets/facebook_widget.dart';
+import 'widgets/google_widget.dart';
+import 'widgets/password_textfield_widget.dart';
 
 class SignupPage extends StatelessWidget {
   final GlobalKey<FormState> formKey=GlobalKey();
@@ -15,7 +17,6 @@ class SignupPage extends StatelessWidget {
     final size=MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async{
-
         Navigator.pushReplacementNamed(context, SplashPage.route,arguments: true);
         return false;
       },
@@ -89,7 +90,7 @@ class SignupPage extends StatelessWidget {
                                       textInputAction:TextInputAction.next,
                                       validator: (value){
                                         if(value!.isEmpty){
-                                          return "Please Enter UserName";
+                                          return "Please Enter User Name";
                                         }
                                         if(value.length<=5){
                                           return "Must be greater than 5 characters ";
@@ -97,6 +98,7 @@ class SignupPage extends StatelessWidget {
                                         return null;
                                       },
                                       decoration: InputDecoration(
+                                        counterText: "",
                                         labelText: "Username",
 
                                       ),
@@ -108,7 +110,7 @@ class SignupPage extends StatelessWidget {
                                         if(value!.isEmpty){
                                           return "Please Enter Email";
                                         }
-                                        if(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
+                                        if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
                                           return "Please Enter Valid Email";
                                         }
                                         return null;
@@ -118,13 +120,9 @@ class SignupPage extends StatelessWidget {
 
                                       ),
                                     ),
-                                    PasswordField(
-                                      nextFocus: focusNode,
-                                      validateMoreThanEmpty: true,
-                                    ),
+
                                     TextFormField(
-                                      focusNode: focusNode,
-                                      textInputAction:TextInputAction.done,
+                                      textInputAction:TextInputAction.next,
                                       keyboardType: TextInputType.phone,
                                       maxLength: 10,
                                       validator: (value){
@@ -140,6 +138,15 @@ class SignupPage extends StatelessWidget {
                                         labelText: "Phone",
                                           counterText: ""
                                       ),
+                                    ),
+                                    PasswordField(
+                                      nextFocus: focusNode,
+                                      validateMoreThanEmpty: true,
+                                    ),
+                                    PasswordField(
+                                      currentFocus: focusNode,
+                                      next: false,
+                                      confirmPassword: true,
                                     ),
                                     SizedBox(height: 10,),
                                     ClipRRect(
@@ -159,10 +166,10 @@ class SignupPage extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 30,),
-                                    GoogleWidget(size: size),
+                                    GoogleWidget(),
 
                                     SizedBox(height: 10,),
-                                    FacebookWidget(size: size),
+                                    FacebookWidget(),
                                     SizedBox(height: 20,),
                                     Row(
                                       children: [
@@ -196,143 +203,3 @@ class SignupPage extends StatelessWidget {
   }
 }
 
-class FacebookWidget extends StatelessWidget {
-  const FacebookWidget({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){},
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-        child: Container(
-          height: 50,
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(color: Colors.blue)
-          ),
-          width: size.width*0.75,
-          child: Row(
-            children: [
-              Expanded(
-                flex:2,
-                child: SvgPicture.asset(
-                    AssetsLocation.facebookLogo
-                ),
-              ),
-              SizedBox(width: 15,),
-              Spacer(),
-              Text(
-                  "Continue with Facebook",
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w600
-                ),
-              ),
-              Spacer(),
-              SizedBox(width: 15,),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class GoogleWidget extends StatelessWidget {
-  const GoogleWidget({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){},
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-          child: Container(
-            height: 50,
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(color: Colors.red)
-            ),
-            width: size.width*0.75,
-            child: Row(
-              children: [
-                Expanded(
-                  child: SvgPicture.asset(
-                      AssetsLocation.googleLogo
-                  ),
-                ),
-                Spacer(),
-                Text(
-                    "Continue with Google",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.red,
-                    fontWeight: FontWeight.w600
-                  ),
-                ),
-                Spacer()
-              ],
-            ),
-          ),
-        ),
-    );
-  }
-}
-
-class PasswordField extends StatefulWidget {
-  final FocusNode? nextFocus;
-  final bool next;
-  final bool validateMoreThanEmpty;
-  const PasswordField({
-    this.validateMoreThanEmpty=false,
-    this.next=true,
-    this.nextFocus,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<PasswordField> createState() => _PasswordFieldState();
-}
-
-class _PasswordFieldState extends State<PasswordField> {
-  bool passwordVisible=false;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-
-      onFieldSubmitted: (_){
-        FocusScope.of(context).requestFocus(widget.nextFocus);
-      },
-      textInputAction:widget.next?TextInputAction.next:TextInputAction.done,
-      obscureText: !passwordVisible,
-      decoration: InputDecoration(
-          labelText: "Password",
-        suffixIcon: Padding(
-          padding: EdgeInsets.only(top: 15), // add padding to adjust icon
-          child: IconButton(
-            onPressed: (){
-              setState(() {
-                passwordVisible=!passwordVisible;
-              });
-            },
-              icon: Icon(passwordVisible?Icons.visibility_off:Icons.visibility)
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ui_one/screens/registration/signup.dart';
+import 'package:ui_one/screens/registration/widgets/facebook_widget.dart';
+import 'package:ui_one/screens/registration/widgets/password_textfield_widget.dart';
 import 'package:ui_one/screens/splash_page/splash_page.dart';
+
+import 'widgets/google_widget.dart';
 
 class LoginPage extends StatelessWidget {
   static const String route="LoginRoute";
@@ -123,9 +127,9 @@ class LoginPage extends StatelessWidget {
                               ),
 
                               SizedBox(height: 30,),
-                              GoogleWidget(size: size),
+                              GoogleWidget(),
                               SizedBox(height: 10,),
-                              FacebookWidget(size: size),
+                              FacebookWidget(),
                               SizedBox(height: 10,),
                               Row(
                                 children: [
